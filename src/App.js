@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
 import './App.css';
+import ResultBox from './components/ResultBox'
+import InputBox from './components/InputBox'
 
 function App() {
+  let defaultValue = '{"source": "jsonreader.com"}';
+
+  const [inputValue, setInputValue] = useState(defaultValue);
+
+  const handleSourceValue = (value) => {
+    try {
+      let beautifyJson = JSON.parse(value);
+      let result = "";
+      for (var k in beautifyJson) {
+        result = result + `"${k}"` + ": \n" + beautifyJson[k] + "\n";
+      }
+      setInputValue(result)
+    } catch (error) {
+      setInputValue(value)
+    }
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="working-box">
+        <InputBox
+          handleSourceValue={handleSourceValue}
+        />
+        <ResultBox
+          inputValue={inputValue}
+        />
+      </div>
     </div>
   );
 }
