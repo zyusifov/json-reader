@@ -2,7 +2,10 @@
 function ResultBox({ inputValue }) {
     return (
         <div className="ResultBox">
-            <p className="working-box-result-view">{inputValue}</p>
+            <div
+                className="working-box-result-view"
+                dangerouslySetInnerHTML={{ __html: inputValue }}
+            ></div>
         </div>
     );
 }
